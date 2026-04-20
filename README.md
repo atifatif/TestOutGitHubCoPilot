@@ -4,11 +4,11 @@ This repository now includes a baseline SQL Server data model and semantic model
 
 ## Artifacts
 
-- `/home/runner/work/TestOutGitHubCoPilot/TestOutGitHubCoPilot/db/sqlserver_model.sql`
+- `db/sqlserver_model.sql`
   - Creates schemas (`stg`, `dim`, `fact`, `rpt`)
   - Creates source/staging/dimension/fact tables
   - Creates a reporting view: `rpt.vw_ExcelObservation`
-- `/home/runner/work/TestOutGitHubCoPilot/TestOutGitHubCoPilot/semantic/reporting_semantic_model.json`
+- `semantic/reporting_semantic_model.json`
   - Defines semantic tables, relationships, and core reporting measures
 
 ## How to use
