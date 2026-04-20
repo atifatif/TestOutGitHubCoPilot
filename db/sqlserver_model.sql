@@ -97,11 +97,7 @@ BEGIN
 END;
 GO
 
-IF OBJECT_ID('rpt.vw_ExcelObservation', 'V') IS NULL
-EXEC('CREATE VIEW rpt.vw_ExcelObservation AS SELECT 1 AS Placeholder;');
-GO
-
-ALTER VIEW rpt.vw_ExcelObservation
+CREATE OR ALTER VIEW rpt.vw_ExcelObservation
 AS
 SELECT
     o.ExcelObservationId,
