@@ -1,0 +1,49 @@
+{
+  "name": "ExcelReportingModel",
+  "description": "Semantic model for reporting on consolidated Excel data loaded into SQL Server.",
+  "defaultSchema": "rpt",
+  "tables": [
+    {
+      "name": "Date",
+      "source": "dim.Date",
+      "key": "DateKey",
+      "columns": ["DateKey", "FullDate", "Year", "Quarter", "Month", "MonthName", "DayOfMonth", "WeekOfYear", "IsWeekend"]
+    },
+    {
+      "name": "BusinessEntity",
+      "source": "dim.BusinessEntity",
+      "key": "BusinessEntityKey",
+      "columns": ["BusinessEntityKey", "BusinessKey", "Category", "SubCategory"]
+    },
+    {
+      "name": "Metric",
+      "source": "dim.Metric",
+      "key": "MetricKey",
+      "columns": ["MetricKey", "MetricName", "MetricGroup", "UnitOfMeasure"]
+    },
+    {
+      "name": "SourceFile",
+      "source": "dbo.SourceFile",
+      "key": "SourceFileId",
+      "columns": ["SourceFileId", "FileName", "SourceSystem", "LoadedBy", "LoadedAtUtc"]
+    },
+    {
+      "name": "ExcelObservation",
+      "source": "fact.ExcelObservation",
+      "key": "ExcelObservationId",
+      "columns": ["ExcelObservationId", "DateKey", "BusinessEntityKey", "MetricKey", "SourceFileId", "MetricValue", "LoadedAtUtc"]
+    }
+  ],
+  "relationships": [
+    {"fromTable": "ExcelObservation", "fromColumn": "DateKey", "toTable": "Date", "toColumn": "DateKey", "cardinality": "ManyToOne"},
+    {"fromTable": "ExcelObservation", "fromColumn": "BusinessEntityKey", "toTable": "BusinessEntity", "toColumn": "BusinessEntityKey", "cardinality": "ManyToOne"},
+    {"fromTable": "ExcelObservation", "fromColumn": "MetricKey", "toTable": "Metric", "toColumn": "MetricKey", "cardinality": "ManyToOne"},
+    {"fromTable": "ExcelObservation", "fromColumn": "SourceFileId", "toTable": "SourceFile", "toColumn": "SourceFileId", "cardinality": "ManyToOne"}
+  ],
+  "measures": [
+    {"name": "Total Metric Value", "expression": "SUM(ExcelObservation[MetricValue])", "formatString": "#,0.00"},
+    {"name": "Average Metric Value", "expression": "AVERAGE(ExcelObservation[MetricValue])", "formatString": "#,0.00"},
+    {"name": "Record Count", "expression": "COUNTROWS(ExcelObservation)", "formatString": "#,0"}
+  ],
+  "reportingView": "rpt.vw_ExcelObservation"
+}
