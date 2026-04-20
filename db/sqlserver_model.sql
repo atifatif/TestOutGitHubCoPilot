@@ -14,7 +14,7 @@ BEGIN
         FileName         NVARCHAR(260) NOT NULL,
         SourceSystem     NVARCHAR(100) NULL,
         LoadedBy         NVARCHAR(100) NULL,
-        LoadedAtUtc      DATETIME2(0) NOT NULL CONSTRAINT DF_SourceFile_LoadedAtUtc DEFAULT SYSUTCDATETIME(),
+        LoadedAtUtc      DATETIME2(3) NOT NULL CONSTRAINT DF_SourceFile_LoadedAtUtc DEFAULT SYSUTCDATETIME(),
         RowCountExpected INT NULL,
         CONSTRAINT UQ_SourceFile UNIQUE (FileName, LoadedAtUtc)
     );
@@ -33,7 +33,7 @@ BEGIN
         MetricName       NVARCHAR(150) NOT NULL,
         MetricValue      DECIMAL(18,4) NOT NULL,
         Notes            NVARCHAR(4000) NULL,
-        LoadedAtUtc      DATETIME2(0) NOT NULL CONSTRAINT DF_ExcelRecord_LoadedAtUtc DEFAULT SYSUTCDATETIME(),
+        LoadedAtUtc      DATETIME2(3) NOT NULL CONSTRAINT DF_ExcelRecord_LoadedAtUtc DEFAULT SYSUTCDATETIME(),
         CONSTRAINT FK_ExcelRecord_SourceFile FOREIGN KEY (SourceFileId) REFERENCES dbo.SourceFile(SourceFileId)
     );
 END;
@@ -88,7 +88,7 @@ BEGIN
         MetricKey          INT NOT NULL,
         SourceFileId       INT NOT NULL,
         MetricValue        DECIMAL(18,4) NOT NULL,
-        LoadedAtUtc        DATETIME2(0) NOT NULL CONSTRAINT DF_ExcelObservation_LoadedAtUtc DEFAULT SYSUTCDATETIME(),
+        LoadedAtUtc        DATETIME2(3) NOT NULL CONSTRAINT DF_ExcelObservation_LoadedAtUtc DEFAULT SYSUTCDATETIME(),
         CONSTRAINT FK_ExcelObservation_Date FOREIGN KEY (DateKey) REFERENCES dim.[Date](DateKey),
         CONSTRAINT FK_ExcelObservation_BusinessEntity FOREIGN KEY (BusinessEntityKey) REFERENCES dim.BusinessEntity(BusinessEntityKey),
         CONSTRAINT FK_ExcelObservation_Metric FOREIGN KEY (MetricKey) REFERENCES dim.Metric(MetricKey),

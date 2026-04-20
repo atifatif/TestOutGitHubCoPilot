@@ -10,6 +10,7 @@ This repository now includes a baseline SQL Server data model and semantic model
   - Creates a reporting view: `rpt.vw_ExcelObservation`
 - `semantic/reporting_semantic_model.json`
   - Defines semantic tables, relationships, and core reporting measures
+  - `SourceFile` remains in `dbo` because it stores ingestion metadata shared across staging and reporting layers
 
 ## How to use
 
